@@ -200,7 +200,9 @@ function animateExplosives(explosivesShooterObject) {
         })
         .on("end", function () {
           explosiveMessageAnimation(explosiveObject).on("end", function () {
-            gameTaskNotCompleted(this, explosiveObject);
+            if (!explosiveObject.wasClicked) {
+              gameTaskNotCompleted(this, explosiveObject);
+            }
           })("borderColor", ["#21217e", "#ffff00", "#7c0101"])(
             "scale",
             [1, 1.5, 1],
