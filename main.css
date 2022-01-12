@@ -100,8 +100,8 @@ button {
   border-radius: 70% 100% 70% 0%;
   display: inline-block;
   background-color: #f00000;
-  border-bottom: 8px solid #444444;
-  border-top: 13px solid #444444;
+  border-bottom: 8px solid #555555;
+  border-top: 13px solid #555555;
   position: relative;
   top: -25px;
   left: -10px;
@@ -122,7 +122,7 @@ button {
 #shooters-base {
   width: 250px;
   height: 50px;
-  background-color: #444444;
+  background-color: #555555;
   text-align: center;
   display: flex;
   justify-content: space-between;
@@ -138,7 +138,7 @@ button {
   bottom: 40px;
   text-align: center;
   display: inline-block;
-  border-top: 30px solid #444444;
+  border-top: 30px solid #555555;
   border-left: 13px solid transparent;
   border-right: 13px solid transparent;
   margin: 0 auto;
@@ -149,8 +149,8 @@ button {
   width: 40px;
   border-radius: 100% 70% 0% 70%;
   display: inline-block;
-  border-left: 13px solid #444444;
-  border-right: 8px solid #444444;
+  border-left: 13px solid #c4c4c4;
+  border-right: 8px solid #c4c4c4;
   transform: translateY(-50px) scale(0);
   cursor: pointer;
 }
@@ -191,7 +191,7 @@ button {
   left: 0;
   top: 0;
   background-color: #000;
-  opacity: 0.8;
+  opacity: 0.6;
   width: 100%;
   height: 100%;
   z-index: 99999;
@@ -200,7 +200,7 @@ button {
 }
 
 #game-paused button {
-  font-size: 100px;
+  font-size: 30px;
   color: #ffffff;
   background-color: transparent;
   border: none;
@@ -220,29 +220,38 @@ button {
   text-align: center;
 }
 .pause-game button {
-  font-size: 25px;
   font-weight: bold;
-  background-color: #333333;
-  line-height: 25px;
-  padding: 5px 10px;
+  background-color: #444444;
+  padding: 5px 15px;
   border: 0;
   border-bottom: 2px solid blue;
   display: inline-block;
-  margin-top: 10px;
+  margin-top: 15px;
   z-index: 999999;
+}
+.pause-game span {
+  width: 5px;
+  float: left;
+  height: 20px;
+  margin: 0px 2px;
+  background-color: #000000;
 }
 
 #game-result {
   display: none;
   text-align: center;
+  position: fixed;
+  width: 100%;
+  background-color: #000000;
+  opacity: 0.7;
+  height: 100%;
+  top: 0;
+  left: 0;
 }
 .game-result-message {
-  position: fixed;
-  bottom: 250px;
-  left: 0;
+  float: left;
+  height: 100%;
   width: 100%;
-  display: flex;
-  justify-content: center;
 }
 .game-result-message div {
   font-size: 50px;
@@ -251,17 +260,19 @@ button {
   height: 100%;
   float: left;
   overflow: hidden;
-  border-bottom: 1px solid #444444;
+  border-bottom: 1px solid #555555;
   color: #e9e9e9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .game-result-message button {
-  font-size: 25px;
+  font-size: 20px;
   padding: 0 20px;
-  position: relative;
-  left: 10%;
+
   display: inline-block;
-  margin-top: 30px;
+  margin-top: 100px;
   border-radius: 0;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
@@ -269,5 +280,5 @@ button {
 }
 .game-result-message strong {
   display: inline-block;
-  width: 100%;
+  margin: 50px;
 }

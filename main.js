@@ -1,7 +1,7 @@
 /* blow-up-x (C) 2022, Diogo Neves<ndiogo778@gmail.com>. Licensed under the MIT license */
 
-var MAX_FRAGMENTS_EXPLOSION = 30;
-var DISTANCE_BETWEEN_FRAGMENTS = 250;
+var MAX_FRAGMENTS_EXPLOSION = 20;
+var DISTANCE_BETWEEN_FRAGMENTS = 300;
 var TIME_TO_ADD_THE_SHOOTER = 1200;
 var EXPLOSIVES_SHOOTER_OBJECTS = [];
 
@@ -253,6 +253,14 @@ function pushExplosive(explosivesShooterObject) {
     playerHasCompletedTheTask(explosiveObject);
   });
 
+  explosive.addEventListener("mousedown", function () {
+    playerHasCompletedTheTask(explosiveObject);
+  });
+
+  explosive.addEventListener("pointerdown", function () {
+    playerHasCompletedTheTask(explosiveObject);
+  });
+
   explosivesShooterObject.explosives.push(explosiveObject);
 
   return explosivesShooterObject;
@@ -439,7 +447,7 @@ function gameOverMessage() {
 }
 
 function playerHasCompletedTheTask(explosiveObject) {
-  if (gameState === "playing") {
+  if (gameState === "playing" && !explosiveObject.wasClicked) {
     explosiveObject.wasClicked = true;
 
     gameScore += 1;
