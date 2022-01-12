@@ -75,9 +75,6 @@ button {
   color: #ffffff;
   line-height: 40px;
 }
-#game-presentation div {
-  margin-top: 5%;
-}
 
 #game-presentation span {
   color: #0bad6f;
@@ -95,6 +92,7 @@ button {
   color: #ffffff;
   border-width: 0;
   border-bottom-width: 1px;
+  margin-top: 20%;
 }
 .game-presentation-explosive {
   height: 40px;
