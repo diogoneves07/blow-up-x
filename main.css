@@ -18,8 +18,7 @@ button {
   position: absolute;
   top: 0px;
   left: 0px;
-  display: flex;
-  justify-content: space-between;
+
   width: 100%;
   z-index: 9999999999999;
 }
@@ -27,22 +26,26 @@ button {
   margin: 0;
   padding: 0;
   list-style: none;
+  width: 100px;
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+  justify-content: space-around;
 }
 #game-contacts li {
-  float: right;
-  margin: 20px 10px;
+  margin: 5%;
   background-color: #aaa9a9;
   border-radius: 100%;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   text-align: center;
   display: flex;
   align-items: flex-end;
   justify-content: center;
 }
 #game-contacts img {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   margin: 0;
 }
 #game-running {
@@ -92,7 +95,7 @@ button {
   color: #ffffff;
   border-width: 0;
   border-bottom-width: 1px;
-  margin-top: 20%;
+  margin-top: 12%;
 }
 .game-presentation-explosive {
   height: 40px;
@@ -114,8 +117,8 @@ button {
 }
 #game-background-animation span {
   display: inline-block;
-  width: 5px;
-  height: 4px;
+  width: 4px;
+  height: 3px;
   position: absolute;
 }
 
@@ -153,13 +156,15 @@ button {
   border-right: 8px solid #c4c4c4;
   transform: translateY(-50px) scale(0);
   cursor: pointer;
+  position: absolute;
+  z-index: 999999999999999;
 }
 
 .explosive span {
   display: inline-block;
-  width: 5px;
-  height: 4px;
-  position: absolute;
+  width: 3px;
+  height: 2px;
+  position: fixed;
   background-color: transparent;
   z-index: -999999999999999;
 }
@@ -182,7 +187,7 @@ button {
   align-items: center;
   justify-content: center;
   text-align: center;
-  visibility: hidden;
+  opacity: 0;
   background-color: #111111;
 }
 

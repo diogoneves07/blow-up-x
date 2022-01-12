@@ -2,7 +2,7 @@
 
 var MAX_FRAGMENTS_EXPLOSION = 20;
 var DISTANCE_BETWEEN_FRAGMENTS = 300;
-var TIME_TO_ADD_THE_SHOOTER = 1200;
+var TIME_TO_ADD_THE_SHOOTER = 500;
 var EXPLOSIVES_SHOOTER_OBJECTS = [];
 
 /* DOM Elements */
@@ -41,7 +41,7 @@ function msToS(ms) {
 
 function getColorToFragments() {
   var hue = Math.round(Math.random() * 360);
-  return "hsl(" + hue + ", 100%, 50%)";
+  return "hsl(" + hue + ", 100%, 60%)";
 }
 
 function getExplosiveTranslate() {
@@ -49,19 +49,17 @@ function getExplosiveTranslate() {
   var innerWidth = window.innerWidth;
 
   var maxY = 500;
-  var maxX = 250;
-  var minY = Math.min(300, innerHeight - 200);
-  var minX = Math.min(150, innerWidth - 250);
 
   var positiveOrNegative = Math.random() > 0.5 ? true : false;
 
-  var explosiveReachY = Math.min(maxY, innerHeight - 200);
-  var explosiveReachX = Math.min(maxX, innerWidth - 250);
+  var explosiveReachY = Math.min(maxY, innerHeight);
 
-  var translateYValue = -Math.max(explosiveReachY * Math.random(), minY);
-  var translateXValue = Math.max(Math.random() * explosiveReachX, minX);
-  console.log(translateXValue, innerWidth);
+  var translateYValue = -Math.max(
+    explosiveReachY * Math.random(),
+    SHOOTERS_BASE_CONTAINER.offsetHeight + 300
+  );
 
+  var translateXValue = (innerWidth / 100) * (Math.random() * 25);
   return {
     y: translateYValue,
     x: positiveOrNegative ? translateXValue : -translateXValue,
@@ -73,7 +71,7 @@ function hiddenExplosive(explosiveObject) {
   explosiveObject.explosive.style.border = "none";
 }
 function hiddenExplosiveMessage(explosiveObject) {
-  explosiveObject.explosiveMessages.style.visibility = "hidden";
+  explosiveObject.explosiveMessages.style.opacity = "0";
 }
 
 function explosiveMessageAnimation(explosiveObject) {
@@ -82,7 +80,7 @@ function explosiveMessageAnimation(explosiveObject) {
       explosiveObject.explosiveMessages,
       getDurationAccordingToGameScore(gameScore)
     )
-    .set("visibility", "visible")
+    .set("opacity", 1)
     .$("Percent", ["0%", "100%"]);
 }
 
@@ -251,15 +249,15 @@ function pushExplosive(explosivesShooterObject) {
     wasClicked: false,
   };
 
-  explosive.addEventListener("click", function () {
+  explosiveContainer.addEventListener("click", function () {
     playerHasCompletedTheTask(explosiveObject);
   });
 
-  explosive.addEventListener("mousedown", function () {
+  explosiveContainer.addEventListener("mousedown", function () {
     playerHasCompletedTheTask(explosiveObject);
   });
 
-  explosive.addEventListener("pointerdown", function () {
+  explosiveContainer.addEventListener("pointerdown", function () {
     playerHasCompletedTheTask(explosiveObject);
   });
 
@@ -272,10 +270,9 @@ function resetExplosivesShooterObject(explosivesShooterObject) {
   explosivesShooterObject.explosives.forEach(function (explosiveObject) {
     explosiveObject.animationCreator.destroy(true);
     explosiveObject.wasClicked = false;
-
     explosiveObject.explosive.style.backgroundColor = "";
     explosiveObject.explosive.style.border = "";
-    explosiveObject.explosiveMessages.style.visibility = "";
+    explosiveObject.explosiveMessages.style.opacity = "0";
   });
   return explosivesShooterObject;
 }
@@ -454,10 +451,11 @@ function playerHasCompletedTheTask(explosiveObject) {
 
     gameScore += 1;
 
+    hiddenExplosiveMessage(explosiveObject);
+    hiddenExplosive(explosiveObject);
+
     /* Performs animation of the fragments. */
     explosiveObject.animationCreator.play();
-    hiddenExplosive(explosiveObject);
-    hiddenExplosiveMessage(explosiveObject);
     gameStages(gameScore);
   }
 }
@@ -466,20 +464,24 @@ function gameTaskNotCompleted(performer, explosiveObject) {
     clearTimeout(setTimeoutId);
 
     hiddenExplosiveMessage(explosiveObject);
+    hiddenExplosive(explosiveObject);
+
     performer.destroy(true);
 
-    hiddenExplosive(explosiveObject);
     if (!explosiveObject.wasClicked) {
       gameOverMessage(explosiveObject);
     }
   }, /* Extra time for the player. */ 300);
 }
 function getDurationAccordingToGameScore() {
-  return 3;
+  if (gameScore > 40) {
+    return 2;
+  }
+  return 2.5;
 }
 
 function gameStages(gameScore) {
-  if (gameScore === 10 || gameScore === 20) {
+  if (gameScore === 5 || gameScore === 20) {
     var length = EXPLOSIVES_SHOOTER_OBJECTS.length;
     for (let index = 0; index < length; index++) {
       const o = EXPLOSIVES_SHOOTER_OBJECTS[index];
@@ -493,7 +495,7 @@ function gameStages(gameScore) {
   if (gameScore === 2) {
     pushExplosive(EXPLOSIVES_SHOOTER_OBJECTS[0]);
   }
-  if (gameScore === 15) {
+  if (gameScore === 10) {
     pushExplosive(EXPLOSIVES_SHOOTER_OBJECTS[1]);
   }
   if (gameScore === 25) {
