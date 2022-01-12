@@ -49,17 +49,18 @@ function getExplosiveTranslate() {
   var innerWidth = window.innerWidth;
 
   var maxY = 500;
-  var minY = 300;
   var maxX = 250;
-  var minX = 150;
+  var minY = Math.min(300, innerHeight - 200);
+  var minX = Math.min(150, innerWidth - 200);
 
   var positiveOrNegative = Math.random() > 0.5 ? true : false;
 
-  var explosiveReachY = Math.min(maxY, innerHeight - 50);
-  var explosiveReachX = Math.min(maxX, innerWidth - 50);
+  var explosiveReachY = Math.min(maxY, innerHeight - 200);
+  var explosiveReachX = Math.min(maxX, innerWidth - 200);
 
   var translateYValue = -Math.max(explosiveReachY * Math.random(), minY);
   var translateXValue = Math.max(Math.random() * explosiveReachX, minX);
+  console.log(translateXValue, innerWidth);
 
   return {
     y: translateYValue,
