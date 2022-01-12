@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>BlowUpX</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="main.css" />
+    <script src="libs/wide-smile.min.js"></script>
+  </head>
+  <body>
+    <div id="game-contacts">
+      <nav>
+        <ul>
+          <li>
+            <a href="https://linkedin.com/in/diogoneves07/" target="_blank">
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg"
+                alt="Linkedln"
+                title="Creator Linkedln"
+              />
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/diogoneves07/blow-up-x" target="_blank">
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
+                alt="Github"
+                title="Github repository"
+              />
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div id="game-presentation">
+      <article>
+        <header>
+          <h2>
+            BlowUpX
+            <span class="game-presentation-explosive"></span>
+          </h2>
+        </header>
+        <p>
+          === Click and blow things up on the screen(
+          <strong>Space</strong>
+          key:<span> Start </span>/<span> Pause </span>/<span> Resume </span
+          >/<span> Restart </span>). ===
+        </p>
+        <div><button id="start-game-button">Start</button></div>
+      </article>
+    </div>
+
+    <div id="game-background-animation"></div>
+
+    <div id="game-running">
+      <div id="shooters-base">
+        <div class="pause-game" title="Pause game">
+          <button id="pause-game-button">||</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="game-paused" title="Resume game">
+      <button id="resume-game-button" title="Resume game">►</button>
+    </div>
+    <div id="game-result">
+      <div class="game-result-message">
+        <div class="game-result-value">
+          <strong id="game-score-value"></strong>
+          <button id="game-button-restart">Restart</button>
+        </div>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>

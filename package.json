@@ -1,0 +1,23 @@
+{
+  "name": "blow-up-x",
+  "version": "0.1.0",
+  "author": "Diogo neves",
+  "license": "MIT",
+  "description": "Click and blow things up on the screen.",
+  "keywords": [
+    "blow-up-x",
+    "HTML",
+    "CSS",
+    "javascript",
+    "animation",
+    "transforms",
+    "game"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/diogoneves07/blow-up-x.git"
+  },
+  "bugs": {
+    "url": "http://github.com/diogoneves07/blow-up-x/issues"
+  }
+}
