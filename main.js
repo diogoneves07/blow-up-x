@@ -68,13 +68,20 @@
   }
 
   function hiddenExplosive(explosiveObject) {
-    explosiveObject.explosive.style.backgroundColor = "transparent";
-    explosiveObject.explosive.style.border = "none";
+    explosiveObject.explosive.style.border = "";
+    explosiveObject.explosive.style.backgroundColor = "=";
+    explosiveObject.explosive.style.height = "";
+    explosiveObject.explosive.style.width = "";
+    explosiveObject.explosive.style.display = "none";
   }
   function hiddenExplosiveMessage(explosiveObject) {
-    explosiveObject.explosiveMessages.style.opacity = "0";
+    explosiveObject.explosiveMessages.style.display = "none";
   }
 
+  function hiddenFragment(fragment) {
+    fragment.style.cssText = "";
+    fragment.style.display = "none";
+  }
   function explosiveMessageAnimation(explosiveObject) {
     return explosiveObject
       .animationCreator(
@@ -134,12 +141,14 @@
     var countAnimatedFragments = 0;
 
     function checkAmountOfAnimatedFragments(fragment) {
-      fragment.style.cssText = "";
+      hiddenFragment(fragment);
       countAnimatedFragments += 1;
 
       if (countAnimatedFragments >= MAX_FRAGMENTS_EXPLOSION) {
         explosiveObject.explosiveContainer.style.cssText = "";
         explosiveElement.style.cssText = "";
+
+        hiddenExplosive(explosiveObject);
         countAnimatedFragments = 0;
         callbackCompletedAllFragmentsAnimation();
       }
@@ -148,12 +157,19 @@
     [].slice
       .call(explosiveObject.fragments)
       .forEach(function (fragment, fragmentIndex) {
+        fragment.style.display = "";
+
         fragmentAnimation(
           explosiveObject.animationCreator,
           fragment,
           fragmentIndex
         )
           .on("ready", function () {
+            explosiveObject.explosive.style.display = "";
+            explosiveObject.explosive.style.border = "0";
+            explosiveObject.explosive.style.height = "0px";
+            explosiveObject.explosive.style.width = "0px";
+            explosiveObject.explosive.style.backgroundColor = "transparent";
             this.set("backgroundColor", backgroundColor);
           })
           .on("end", function () {
@@ -198,9 +214,12 @@
         explosiveContainerAnimation(explosiveObject, explosiveObjectindex)
           .on("start", function () {
             explosivesShooterObject.animateShooter.restart();
+            explosiveObject.explosive.style.display = "";
             explosiveAnimation(explosiveObject, defaultBackgroundColor);
           })
           .on("end", function () {
+            explosiveObject.explosiveMessages.style.display = "";
+
             explosiveMessageAnimation(explosiveObject).on("end", function () {
               if (!explosiveObject.wasClicked) {
                 gameTaskNotCompleted(this, explosiveObject);
@@ -225,9 +244,11 @@
     var animationCreator = wS().new();
 
     var explosiveContainer = document.createElement("div");
-    var explosiveMessages = document.createElement("div");
+    var explosiveMessages = document.createElement("button");
     var explosive = document.createElement("div");
     var fragments = [];
+
+    explosive.style.display = "none";
 
     for (var i = 0; i < MAX_FRAGMENTS_EXPLOSION; i++) {
       var span = document.createElement("span");
@@ -235,7 +256,7 @@
       explosive.appendChild(span);
     }
 
-    explosiveContainer.className = "explosive-container ";
+    explosiveContainer.className = "explosive-container";
     explosiveMessages.className = "explosive-messages";
     explosive.className = "explosive";
 
@@ -249,6 +270,13 @@
       explosiveMessages: explosiveMessages,
       explosive: explosive,
       fragments: fragments,
+      fragmentsAnimationCreator: (function () {
+        var fragmentsAnimationCreator = wS().new();
+        for (var i = 0; i < MAX_FRAGMENTS_EXPLOSION; i++) {
+          fragmentAnimation(fragmentsAnimationCreator, fragments[i], i);
+        }
+        return fragmentsAnimationCreator;
+      })(),
       animationCreator: animationCreator,
       wasClicked: false,
     };
@@ -274,9 +302,15 @@
     explosivesShooterObject.explosives.forEach(function (explosiveObject) {
       explosiveObject.animationCreator.destroy(true);
       explosiveObject.wasClicked = false;
-      explosiveObject.explosive.style.backgroundColor = "";
-      explosiveObject.explosive.style.border = "";
-      explosiveObject.explosiveMessages.style.opacity = "0";
+
+      explosiveObject.explosive.style.cssText = "";
+      explosiveObject.explosive.style.display = "none";
+
+      explosiveObject.explosiveMessages.style.cssText = "";
+      explosiveObject.explosiveMessages.style.display = "none";
+      explosiveObject.fragments.forEach((fragment) => {
+        hiddenFragment(fragment);
+      });
     });
     return explosivesShooterObject;
   }
@@ -417,7 +451,7 @@
   })();
 
   function startGame() {
-    document.documentElement.requestFullscreen();
+    // document.documentElement.requestFullscreen();
 
     if (gameState === "presentation") {
       GAME_CONTACTS_CONTAINER.style.display = "none";
@@ -487,7 +521,7 @@
   }
 
   function gameStages(gameScore) {
-    if (gameScore === 5 || gameScore === 20) {
+    if (gameScore === 3 || gameScore === 6) {
       var length = EXPLOSIVES_SHOOTER_OBJECTS.length;
       for (let index = 0; index < length; index++) {
         const o = EXPLOSIVES_SHOOTER_OBJECTS[index];
@@ -498,13 +532,13 @@
       }
     }
 
-    if (gameScore === 2) {
+    if (gameScore === 1 || gameScore === 20) {
       pushExplosive(EXPLOSIVES_SHOOTER_OBJECTS[0]);
     }
-    if (gameScore === 10) {
+    if (gameScore === 10 || gameScore === 25) {
       pushExplosive(EXPLOSIVES_SHOOTER_OBJECTS[1]);
     }
-    if (gameScore === 25) {
+    if (gameScore === 15 || gameScore === 35) {
       pushExplosive(EXPLOSIVES_SHOOTER_OBJECTS[2]);
     }
   }
