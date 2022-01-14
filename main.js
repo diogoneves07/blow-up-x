@@ -89,7 +89,13 @@
         getDurationAccordingToGameScore(gameScore)
       )
       .set("opacity", 1)
-      .$("Percent", ["0%", "100%"]);
+      .$("Percent", ["0%", "100%"])
+      .on("change", function () {
+        if (explosiveObject.wasClicked) {
+          this.destroy(true);
+          hiddenExplosiveMessage(explosiveObject);
+        }
+      });
   }
 
   function explosiveAnimation(explosiveObject, backgroundColor) {
@@ -451,7 +457,7 @@
   })();
 
   function startGame() {
-    // document.documentElement.requestFullscreen();
+    document.documentElement.requestFullscreen();
 
     if (gameState === "presentation") {
       GAME_CONTACTS_CONTAINER.style.display = "none";
