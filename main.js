@@ -457,8 +457,6 @@
   })();
 
   function startGame() {
-    document.documentElement.requestFullscreen();
-
     if (gameState === "presentation") {
       GAME_CONTACTS_CONTAINER.style.display = "none";
       GAME_PRESENTATION_CONTAINER.style.display = "none";
